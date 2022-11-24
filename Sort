@@ -1,0 +1,21 @@
+def piramid(nums, heat_size, root_index):
+    big = root_index
+    left_a = (2 * root_index) + 1
+    right_b = (2 * root_index) + 2
+    if left_a < heat_size and nums[left_a] > nums[big]:
+        big = left_a
+    if right_b < heat_size and nums[right_b] > nums[big]:
+        big = right_b
+    if big != root_index:
+        nums[root_index], nums[big] = nums[big], nums[root_index]
+        piramid(nums, heat_size, big)
+def heat_sort(nums):
+    n = len(nums)
+    for i in range(n, -1, -1):
+        piramid(nums, n, i)
+    for i in range(n - 1, 0, -1):
+        nums[i], nums[0] = nums[0], nums[i]
+        piramid(nums, i, 0)
+random_list_of_nums = [3, 12, 4, 8, 1]
+heat_sort(random_list_of_nums)
+print(random_list_of_nums)
